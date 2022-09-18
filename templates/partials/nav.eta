@@ -1,0 +1,22 @@
+<!-- Nav -->
+<nav class="container-fluid">
+    <ul>
+        <li>
+            <a href="/" class="contrast">
+                <strong>Mirage</strong>
+            </a>
+        </li>
+    </ul>
+    <ul>
+        <li>
+        <details role="list" dir="rtl">
+            <summary aria-haspopup="listbox" role="link" class="secondary">Auth</summary>
+            <ul role="listbox">
+            <li><a href="/login">Sign in</a></li>
+            <li><a href="/registration">New acc</a></li>
+            </ul>
+        </details>
+        </li>
+    </ul>
+</nav>
+<!-- Nav -->
