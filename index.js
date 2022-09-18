@@ -4,6 +4,8 @@ const path = require('node:path');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 
+const PORT = process.env.PORT || 5000;
+
 
 fastify.register(require('@fastify/static'), {
     root: path.join(__dirname, 'static'),
@@ -16,11 +18,11 @@ fastify.register(require("@fastify/view"), {
     },
 });
 
-fastify.listen({ port: process.env.PORT || 3434 }, (error) => {
-    console.log("Hello! Web server is listening!");
-});
-
-
 fastify.get("/", indexRouter.indexRoute);
 fastify.get("/login", authRouter.loginRoute);
 fastify.get("/registration", authRouter.registrationRoute);
+
+
+fastify.listen({ port: port }, (error) => {
+    console.log("Hello! Web server is listening!");
+});
