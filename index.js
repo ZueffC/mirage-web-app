@@ -23,6 +23,6 @@ fastify.get("/login", authRouter.loginRoute);
 fastify.get("/registration", authRouter.registrationRoute);
 
 
-fastify.listen({ port: PORT }, (error) => {
+fastify.listen({ port: PORT, host: '0.0.0.0' }, (error) => {
     console.log("Hello! Web server is listening!");
 });
