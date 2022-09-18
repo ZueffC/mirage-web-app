@@ -65,3 +65,6 @@
 
     element.textContent = "sh " + domain + "/" + "start-on-unix.sh";
 </script>
+
+
+<%~ includeFile("templates/partials/footer") %>
