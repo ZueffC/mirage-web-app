@@ -16,7 +16,7 @@ fastify.register(require("@fastify/view"), {
     },
 });
 
-fastify.listen({ port: 3434 }, (error) => {
+fastify.listen({ port: process.env.PORT || 3434 }, (error) => {
     console.log("Hello! Web server is listening!");
 });
 
