@@ -18,7 +18,17 @@
     
 <!-- About section -->
 <center class="about-section">
-    <h4>Well, what is it and why u should use it?</h4>
+
+    <div class="container">
+        <h2>Idea of Mirage:</h2>
+        <p>
+            Today lots of new developers wants to share their programs to world but if u`re newer it`s too difficult, isnt it? <br /> 
+            Our project allows you to upload code of u project to github, add <code><small>mirage.toml</small></code> config with build instructions data, 
+            register here and add u repo in u profile. Thats all! And all people around the world using Mirage able to install u app! Boom!
+        </p>
+    </div>
+
+    <h4>Advantages of using our package manager:</h4>
 
     <div class="grid container">
         <div>
