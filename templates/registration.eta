@@ -1,0 +1,26 @@
+<% layout("templates/layouts/main") %>
+<%~ includeFile("templates/partials/nav") %>
+
+
+<link rel="stylesheet" href="../static/css/auth.css">
+
+<!-- Main -->
+<main class="container">
+  <article class="grid">
+    <div>
+      <hgroup>
+        <h1>Registration</h1>
+        <h2>Hi, now u can do it:</h2>
+      </hgroup>
+      <form method="post" action="/registration">
+        <input type="text" name="login" placeholder="U nick" aria-label="Login" autocomplete="login" required>
+        <input type="email" name="email" placeholder="Email" aria-label="Email" autocomplete="email" required>
+        <input type="password" name="password" placeholder="Password" aria-label="Password" autocomplete="password" required>
+
+        <button type="submit" class="contrast">Create account</button>
+      </form>
+    </div>
+    <div></div>
+  </article>
+</main>
+<!-- ./ Main -->

@@ -10,7 +10,7 @@
 
     <title> <%= it.title %> </title>
 </head>
-<body>
+<body class="vsc-initialized">
     <%~ it.body %>
 </body>
 </html>

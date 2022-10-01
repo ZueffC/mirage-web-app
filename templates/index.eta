@@ -1,5 +1,4 @@
 <% layout("templates/layouts/main") %>
-
 <%~ includeFile("templates/partials/nav") %>
 
 <!-- H1-2 section -->
@@ -73,5 +72,5 @@
     let element = document.querySelector("#link-to-script");
     let domain = window.location.host;
 
-    element.textContent = "sh " + domain + "/" + "start-on-unix.sh";
+    element.textContent = `/bin/bash -c "$(curl -fsSL https://${domain}/start-on-unix.sh)"`
 </script>
