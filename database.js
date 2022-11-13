@@ -7,16 +7,8 @@ const sequelize = new Sequelize({
 });
 
 
-const User = sequelize.define('User', {
-    nick: { type: DataTypes.STRING, allowNull: false },
-    email: { type: DataTypes.STRING, allowNull: false},
-    password: { type: DataTypes.STRING, allowNull: false },
-    passCode: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
-});
-
 async function init() {
     await sequelize.authenticate();
-    await User.sync();
 }
 
 try {
@@ -25,4 +17,4 @@ try {
     console.log("An error occurred while initializing the database: ", error);
 }
 
-module.exports = { sequelize, User };
+module.exports = { sequelize };

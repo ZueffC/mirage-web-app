@@ -1,44 +1,66 @@
-const { sequelize, User } = require("../database");
-let SHA256 = require("crypto-js/sha256");
-
+const SHA384 = require('crypto-js/sha384');
+const axios = require("axios");
 
 
 async function loginRoute(req, res) {
-    await res.view("/templates/login", {"title": "Login to Mirage"});
+    await res.view("login", {
+        "title": "Login to Mirage"
+    });
 };
 
 async function registrationRoute(req, res) {
-    await res.view("/templates/registration", {"title": "Registration to Mirage"});
+    await res.view("registration", {
+        "title": "Registration to Mirage"
+    });
 };
 
 async function loginPostRoute(req, res) {
-    let nick = req.body.login;
-    let password = req.body.password;
+    let data = req.body
 
-    const user = await User.findOne({ where: { nick: nick, password: SHA256(password).toString(), } });
-    
-    if (user.email !== null)
-        await res.redirect("/profile");
-    
-    await res.redirect("/");
+    axios({
+        method: "post",
+        url: data.node_url[1] + "/users/auth",
+        data: {
+            type: "login",
+            nick: data.nick,
+            email: data.email,
+            password: SHA384(data.password).toString(),
+        },
+    }).then(function(response) {
+        let resp = response.data;
+        if (resp.ID > 0) {
+            req.session.authenticated = true;
+            req.session.node_url = data.node_url[1];
+        }
+    });
+    req.session.test = "test";
+    res.redirect("/profile");
 };
 
 async function registerPostRoute(req, res) {
-    let nick = req.body.login;
-    let email = req.body.email;
-    let password = req.body.password;
+    if (req.body.node_url[0] == "custom" && req.body.node_url[1]) {
 
-    try {
-        let newUser = User.create({ nick: nick, email: email, password: SHA256(password).toString() });
-    } catch (err) {
-        console.error(err);
+        axios({
+            method: 'post',
+            url: req.body.node_url[1] + "/users/auth",
+            data: {
+                type: "registration",
+                nick: req.body.nick,
+                email: req.body.email,
+                password: SHA384(req.body.password).toString(),
+            }
+        });
+
+        res.redirect("/login");
+    } else {
+        res.redirect("/");
     }
 
-    res.redirect("/login");
+    //res.redirect("/login");
 };
 
-module.exports = { 
-    loginRoute: loginRoute, 
+module.exports = {
+    loginRoute: loginRoute,
     registrationRoute: registrationRoute,
     loginPostRoute: loginPostRoute,
     registerPostRoute: registerPostRoute,
