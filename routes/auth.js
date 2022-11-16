@@ -16,39 +16,39 @@ async function registrationRoute(req, res) {
 
 async function loginPostRoute(req, res) {
     let data = req.body
+    let query_url = ""
 
-    axios({
-        method: "post",
-        url: data.node_url[1] + "/users/auth",
-        data: {
-            type: "login",
-            nick: data.nick,
-            email: data.email,
-            password: SHA384(data.password).toString(),
-        },
-    }).then(function(response) {
-        let resp = response.data;
-        if (resp.ID > 0) {
-            req.session.authenticated = true;
-            req.session.node_url = data.node_url[1];
-        }
+    if (data.node_url[1][data.node_url[1].length - 1] == "/")
+        query_url = data.node_url[1] + "users/auth"
+    else
+        query_url = data.node_url[1] + "/users/auth"
+
+    axios.post(query_url, {
+        nick: data.nick,
+        email: data.email,
+        password: data.password,
+        type: "login",
     });
+
     req.session.test = "test";
     res.redirect("/profile");
 };
 
 async function registerPostRoute(req, res) {
     if (req.body.node_url[0] == "custom" && req.body.node_url[1]) {
+        let data = req.body
+        let query_url = ""
 
-        axios({
-            method: 'post',
-            url: req.body.node_url[1] + "/users/auth",
-            data: {
-                type: "registration",
-                nick: req.body.nick,
-                email: req.body.email,
-                password: SHA384(req.body.password).toString(),
-            }
+        if (data.node_url[1][data.node_url[1].length - 1] == "/")
+            query_url = data.node_url[1] + "users/auth"
+        else
+            query_url = data.node_url[1] + "/users/auth"
+
+        axios.post(query_url, {
+            type: "registration",
+            nick: data.nick,
+            email: data.email,
+            password: SHA384(data.password).toString(),
         });
 
         res.redirect("/login");
