@@ -1,5 +1,14 @@
+const axios = require("axios");
+
+
 async function profileRoute(req, res) {
-    return req.session;
+    if (!req.session.ID && !req.session.node_url)
+        res.redirect("/login")
+    else {
+        await res.view("profile", {
+            title: "Profile"
+        })
+    }
 }
 
 

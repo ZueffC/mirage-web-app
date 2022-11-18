@@ -30,6 +30,14 @@ const PORT = process.env.PORT || 5000;
         prefix: '/static/', // optional: default '/'
     });
 
+    fastify.decorateReply('locals', null)
+
+    fastify.addHook('preHandler', function(req, reply, next) {
+        reply.locals = {}
+        reply.locals.session = req.session;
+        next();
+    });
+
     fastify.register(require("@fastify/view"), {
         engine: {
             eta: require("eta"),
