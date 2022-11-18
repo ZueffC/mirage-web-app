@@ -69,4 +69,5 @@ module.exports = {
     registrationRoute: registrationRoute,
     loginPostRoute: loginPostRoute,
     registerPostRoute: registerPostRoute,
+    getRightUrl: getRightUrl,
 };

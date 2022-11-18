@@ -9,6 +9,7 @@ const crypto = require('node:crypto');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const profileRouter = require('./routes/profile');
+const packagesRouter = require('./routes/packages');
 
 const PORT = process.env.PORT || 5000;
 
@@ -50,6 +51,9 @@ const PORT = process.env.PORT || 5000;
 fastify.get("/", indexRouter.indexRoute);
 fastify.get("/profile", profileRouter.profileRoute);
 
+fastify.get("/packages", packagesRouter.getUserPackagesRouter);
+fastify.post("/packages", packagesRouter.postCreateRoute);
+
 fastify.get("/login", authRouter.loginRoute);
 fastify.get("/registration", authRouter.registrationRoute);
 
@@ -57,9 +61,14 @@ fastify.post("/registration", authRouter.registerPostRoute);
 fastify.post("/login", authRouter.loginPostRoute);
 
 
-fastify.listen({
-    port: PORT,
-    host: '0.0.0.0'
-}, (error) => {
-    console.log(`Hello! Web server is listening on post ${PORT}!`);
-});
+const start = async () => {
+    try {
+        await fastify.listen({
+            port: PORT
+        });
+    } catch (err) {
+        fastify.log.error(err);
+        process.exit(1);
+    }
+}
+start();
