@@ -8,8 +8,15 @@ async function getUserPackagesRouter(req, res) {
     if (!req.session.id && !req.session.node_url)
         await res.redirect("/login");
     else {
-        await res.view("packages", {
-            title: `${req.session.nick} packages`
+        let getInformationUrl = getRightUrl(req.session.node_url, "packages/get");
+        const information = await axios.post(getInformationUrl, {
+            type: "all",
+            id: req.session.id,
+        }).then(async (response) => {
+            res.view("packages", {
+                title: `${req.session.nick} packages`,
+                data: response.data,
+            });
         });
     }
 }
