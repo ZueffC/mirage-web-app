@@ -60,10 +60,17 @@ fastify.get("/registration", authRouter.registrationRoute);
 fastify.post("/registration", authRouter.registerPostRoute);
 fastify.post("/login", authRouter.loginPostRoute);
 
+fastify.get('/start-on-unix.sh', (req, reply) => {
+  const buffer = fs.readFileSync('./installation');
+  reply.type('text/plain');
+  reply.send(buffer);
+})
+
 
 const start = async () => {
     try {
         await fastify.listen({
+            host: "0.0.0.0",
             port: PORT
         });
     } catch (err) {
