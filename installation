@@ -1,0 +1,28 @@
+#!/bin/sh
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+if ! command -v git &> /dev/null
+then
+	echo -e "${RED}You should install Git on your machine!${NC}"
+	exit 255
+fi
+
+if ! command -v go &> /dev/null
+then
+	echo "${RED}You should install GoLang on your machine!${NC}"
+	exit 255
+fi
+
+git clone https://github.com/ZueffC/mirage-cli $HOME/.mirage/mirage
+cd $HOME/.mirage/mirage/
+go build main.go -o ./build
+cd ./build
+
+echo -e "Mirage was builded successfuly! Well, now you should add path to this folder :"
+echo -e "${pwd}"
+echo -e "into your system PATH variable. Enjoy the most lightweight package manager in the world!"
+
+
